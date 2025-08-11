@@ -52,7 +52,7 @@ export default function HomePage({ videos, currentPage, totalPages, homePageHead
     if (newFilters.category !== 'all') params.set('category', newFilters.category);
     if (newFilters.pornstar !== 'all') params.set('pornstar', newFilters.pornstar);
     newFilters.tags.forEach(tag => params.append('tags', tag));
-    router.push(`/?${params.toString()}`, { scroll: false });
+    router.push(`/?${params.toString()}`);
   }, [router]);
 
   const filteredVideos = useMemo(() => {
@@ -88,7 +88,7 @@ export default function HomePage({ videos, currentPage, totalPages, homePageHead
   const handlePageChange = (page) => {
     const params = new URLSearchParams(searchParams);
     params.set('page', page.toString());
-    router.push(`/?${params.toString()}`, { scroll: false });
+    router.push(`/?${params.toString()}`);
   };
   
   if (!isClient) {
