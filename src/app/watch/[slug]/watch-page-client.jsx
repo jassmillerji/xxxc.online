@@ -223,6 +223,8 @@ const WatchPageClient = ({ video }) => {
   };
 
   const currentVideoUrl = videoSources.find(s => s.quality === selectedQuality)?.url || videoSources[0]?.url;
+  
+  const allTags = video.tags.flatMap(tag => tag.split(',').map(t => t.trim()));
 
   return (
     <div>
@@ -400,7 +402,7 @@ const WatchPageClient = ({ video }) => {
 
         <div className="flex items-center gap-2 flex-wrap">
           <Tag className="w-5 h-5 text-muted-foreground" />
-          {video.tags.map((tag) => (
+          {allTags.map((tag) => (
             <Badge key={tag} variant="secondary" className="text-sm">
               {tag}
             </Badge>
