@@ -5,7 +5,7 @@ import VideoCard from '@/components/video-card';
 import { Pagination } from '@/components/ui/pagination';
 import { useLanguage } from '@/context/language-context';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import FilterSection from '@/components/filter-section';
 import { getCategories, getPornstars, getPopularTags } from '@/lib/data';
 
@@ -14,11 +14,14 @@ export default function HomePage({ videos, currentPage, totalPages, homePageHead
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [filters, setFilters] = useState({
-    sort: searchParams.get('sort') || 'popular',
-    category: searchParams.get('category') || 'all',
-    pornstar: searchParams.get('pornstar') || 'all',
-    tags: searchParams.getAll('tags') || [],
+  const [filters, setFilters] = useState(() => {
+    const params = new URLSearchParams(searchParams);
+    return {
+        sort: params.get('sort') || 'popular',
+        category: params.get('category') || 'all',
+        pornstar: params.get('pornstar') || 'all',
+        tags: params.getAll('tags') || [],
+    }
   });
 
   const [categories, setCategories] = useState([]);
@@ -41,7 +44,7 @@ export default function HomePage({ videos, currentPage, totalPages, homePageHead
     fetchFilterData();
   }, []);
 
-  const handleFilterChange = (newFilters) => {
+  const handleFilterChange = useCallback((newFilters) => {
     setFilters(newFilters);
     const params = new URLSearchParams();
     params.set('page', '1');
@@ -49,8 +52,8 @@ export default function HomePage({ videos, currentPage, totalPages, homePageHead
     if (newFilters.category !== 'all') params.set('category', newFilters.category);
     if (newFilters.pornstar !== 'all') params.set('pornstar', newFilters.pornstar);
     newFilters.tags.forEach(tag => params.append('tags', tag));
-    router.push(`/?${params.toString()}`);
-  };
+    router.push(`/?${params.toString()}`, { scroll: false });
+  }, [router]);
 
   const filteredVideos = useMemo(() => {
     let tempVideos = [...videos];
@@ -84,8 +87,8 @@ export default function HomePage({ videos, currentPage, totalPages, homePageHead
 
   const handlePageChange = (page) => {
     const params = new URLSearchParams(searchParams);
-    params.set('page', page);
-    router.push(`/?${params.toString()}`);
+    params.set('page', page.toString());
+    router.push(`/?${params.toString()}`, { scroll: false });
   };
   
   if (!isClient) {
