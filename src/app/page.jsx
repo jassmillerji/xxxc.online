@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata() {
     try {
-        const response = await fetch('https://api.panelauthy.xyz/api/v1/admin/pages/static/xxxc-home-page', { next: { revalidatePath: 1800 } });
+        const response = await fetch('https://api.panelauthy.xyz/api/v1/admin/pages/static/xxxc-home-page', { next: { revalidate: 1800 } });
         if (!response.ok) {
             return {
                 title: 'xxxc.online | Featured Adult Videos & Free Porn',
@@ -33,8 +33,9 @@ export async function generateMetadata() {
 }
 
 
-async function HomeContent({ currentPage }) {
+async function HomeContent({ searchParams }) {
     const allVideos = await getVideos();
+    const currentPage = Number(searchParams?.page) || 1;
 
     let homePageHeading = '';
     let homePageContent = '';
@@ -61,15 +62,10 @@ async function HomeContent({ currentPage }) {
     return <HomePage videos={allVideos} currentPage={currentPage} totalPages={totalPages} homePageHeading={homePageHeading} homePageContent={homePageContent} />;
 }
 
-function HomePageWrapper({ searchParams }) {
-    const currentPage = Number(searchParams?.page) || 1;
-    return <HomeContent currentPage={currentPage} />
-}
-
 export default function Home({ searchParams }) {
     return (
         <Suspense fallback={<HomePageSkeleton />}>
-            <HomePageWrapper searchParams={searchParams} />
+            <HomeContent searchParams={searchParams} />
         </Suspense>
     );
 }
