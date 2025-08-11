@@ -28,7 +28,7 @@ const SimilarVideos = ({ videos }) => {
       </div>
       {visibleSimilarVideos < videos.length && (
         <div className="text-center mt-8">
-          <Button onClick={handleLoadMore} className="bg-pink-500 hover:bg-pink-500/90 text-white">Load More</Button>
+          <Button onClick={handleLoadMore}>Load More</Button>
         </div>
       )}
     </>
