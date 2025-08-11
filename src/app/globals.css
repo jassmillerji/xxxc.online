@@ -1,0 +1,88 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%; /* #000000 */
+    --foreground: 0 0% 97%; /* #F7F7F7 */
+    
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 97%;
+    
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 97%;
+    
+    --primary: 37 100% 58%; /* #FFB22C */
+    --primary-foreground: 0 0% 0%;
+    
+    --secondary: 53 100% 50%; /* #FFE100 */
+    --secondary-foreground: 0 0% 0%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    
+    --accent: 53 100% 50%; /* #FFE100 */
+    --accent-foreground: 0 0% 0%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 37 100% 58%;
+    
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 0%; /* #000000 */
+    --foreground: 0 0% 97%; /* #F7F7F7 */
+    
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 97%;
+    
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 97%;
+    
+    --primary: 37 100% 58%; /* #FFB22C */
+    --primary-foreground: 0 0% 0%;
+    
+    --secondary: 53 100% 50%; /* #FFE100 */
+    --secondary-foreground: 0 0% 0%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    
+    --accent: 53 100% 50%; /* #FFE100 */
+    --accent-foreground: 0 0% 0%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 37 100% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  body:has([data-sidebar-open=true]) {
+    overflow: hidden;
+  }
+}
