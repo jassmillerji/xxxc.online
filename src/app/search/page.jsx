@@ -9,7 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 async function SearchResults({ query }) {
     if (!query) {
         return (
-            <div className="px-4 sm:px-6 lg:px-8 py-8">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <h1 className="text-3xl font-bold mb-8 font-headline">Search</h1>
                 <p className="text-center text-muted-foreground text-lg mt-12">
                     Please enter a search term to begin.
@@ -41,7 +41,7 @@ async function SearchResults({ query }) {
     const hasResults = videoResults.length > 0 || pornstarResults.length > 0 || contentResults.length > 0;
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 py-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <h1 className="text-3xl font-bold mb-8 font-headline">
                 Search Results for: <span className="text-accent">{query}</span>
             </h1>
@@ -55,7 +55,7 @@ async function SearchResults({ query }) {
                     {videoResults.length > 0 && (
                         <section>
                             <h2 className="text-2xl font-bold mb-6">Videos ({videoResults.length})</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-x-4 gap-y-8">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-x-4 gap-y-8">
                                 {videoResults.map((video, index) => (
                                     <VideoCard key={`video-${video.id}-${index}`} video={video} />
                                 ))}
@@ -66,7 +66,7 @@ async function SearchResults({ query }) {
                     {pornstarResults.length > 0 && (
                         <section>
                             <h2 className="text-2xl font-bold mb-6">Pornstars ({pornstarResults.length})</h2>
-                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-x-4 gap-y-8">
+                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-8 gap-x-4 gap-y-8">
                                 {pornstarResults.map((pornstar) => (
                                     <PornstarCard key={pornstar.id} pornstar={pornstar} />
                                 ))}
@@ -77,7 +77,7 @@ async function SearchResults({ query }) {
                     {contentResults.length > 0 && (
                         <section>
                             <h2 className="text-2xl font-bold mb-6">Photos & GIFs ({contentResults.length})</h2>
-                            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
                                 {contentResults.map((item) => (
                                     <ContentCard key={item.id} item={item} type={item.type} />
                                 ))}
@@ -92,7 +92,7 @@ async function SearchResults({ query }) {
 
 function SearchPageSkeleton() {
     return (
-        <div className="px-4 sm:px-6 lg:px-8 py-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <Skeleton className="h-8 w-1/2 mb-8" />
             <div className="space-y-12">
                 <section>

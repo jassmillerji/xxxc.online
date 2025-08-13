@@ -14,7 +14,11 @@
 /coverage
 
 # next.js
-
+.idx
+.vscode
+docs
+.modified
+apphosting.yaml
 
 # production
 /build

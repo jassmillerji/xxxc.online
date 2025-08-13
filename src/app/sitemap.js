@@ -1,8 +1,7 @@
 
-import { getVideos, getCategories } from '@/lib/data'
+import { getVideos, getCategories, getPornstars, getPhotosAndGifs } from '@/lib/data'
  
 export default async function sitemap() {
-  // In a real scenario, you might get the site URL from an environment variable
   const siteUrl = 'https://xxxc.online';
 
   const videos = await getVideos();
@@ -20,6 +19,22 @@ export default async function sitemap() {
     changeFrequency: 'weekly',
     priority: 0.7,
   }));
+
+  const pornstars = await getPornstars();
+  const pornstarEntries = pornstars.map((pornstar) => ({
+    url: `${siteUrl}/pornstars/${pornstar.name.toLowerCase().replace(/ /g, '-')}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
+  
+  const content = await getPhotosAndGifs();
+  const contentEntries = content.map((item) => ({
+    url: `${siteUrl}/photos/${item.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.5,
+  }));
  
   return [
     {
@@ -34,7 +49,21 @@ export default async function sitemap() {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+     {
+      url: `${siteUrl}/pornstars`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+     {
+      url: `${siteUrl}/photos-and-gifs`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.7,
+    },
     ...videoEntries,
     ...categoryEntries,
+    ...pornstarEntries,
+    ...contentEntries,
   ]
 }

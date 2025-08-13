@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Search, Flame } from "lucide-react";
+import { Menu, Search, PlayCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Logo from "./logo";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -112,7 +112,7 @@ const Header = () => {
             </div>
              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full">
                 <Link href="/fuck-now">
-                    <Flame className="w-5 h-5 mr-1" />
+                    <PlayCircle className="w-5 h-5 mr-1" />
                     Reels
                 </Link>
             </Button>

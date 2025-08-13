@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata() {
     try {
-        const response = await fetch('https://api.panelauthy.xyz/api/v1/admin/pages/static/xxxc-home-page', { next: { revalidate: 1800 } });
+        const response = await fetch('https://api.panelauthy.xyz/api/v1/admin/pages/static/xxxc-home-page', { next: { revalidate: 180 } });
         if (!response.ok) {
             return {
                 title: 'xxxc.online | Featured Adult Videos & Free Porn',
@@ -38,18 +38,19 @@ async function HomeContent({ searchParams }) {
     const currentPage = Number(searchParams?.page) || 1;
 
     let homePageHeading = '';
-    let homePageContent = '';
+    let homePageContent = [];
     try {
         const response = await fetch('https://api.panelauthy.xyz/api/v1/admin/pages/static/xxxc-home-page', { cache: 'no-store' });
         if (response.ok) {
             const apiData = await response.json();
             const heading = apiData.data.content.find(item => item.type === 'heading');
-            const paragraph = apiData.data.content.find(item => item.type === 'paragraph');
+            const paragraphs = apiData.data.content.filter(item => item.type === 'paragraph');
+
             if (heading) {
                 homePageHeading = heading.text;
             }
-            if (paragraph) {
-                homePageContent = paragraph.text;
+            if (paragraphs.length > 0) {
+                homePageContent = paragraphs.map(p => p.text);
             }
         }
     } catch (error) {
@@ -72,11 +73,11 @@ export default function Home({ searchParams }) {
 
 function HomePageSkeleton() {
     return (
-        <div className="px-4 sm:px-6 lg:px-8 py-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <section className="mb-12">
                 <Skeleton className="h-8 w-48 mb-6" />
                 <Skeleton className="h-4 w-3/4 mb-6" />
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-x-4 gap-y-8">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-x-4 gap-y-8">
                     {[...Array(50)].map((_, i) => (
                         <div key={i} className="space-y-2">
                             <Skeleton className="aspect-video w-full" />

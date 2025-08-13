@@ -67,11 +67,11 @@ export default async function CategoryPage({ params }) {
   const categoryVideos = allVideos.sort(() => Math.random() - 0.5);
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-8">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         <div className="md:col-span-12">
           <h2 className="text-xl md:text-2xl font-bold mb-6">Videos in {category.name}</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 md:gap-6">
             {categoryVideos.map((video, index) => (
               <VideoCard key={`${video.id}-${index}`} video={video} />
             ))}

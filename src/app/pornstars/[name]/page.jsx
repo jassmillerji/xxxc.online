@@ -15,6 +15,53 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }) {
+    const pornstar = await getPornstarByName(params.name.replace(/-/g, ' '));
+    if (!pornstar) {
+        return {
+            title: 'Pornstar Not Found',
+        };
+    }
+
+    const siteUrl = 'https://xxxc.online';
+    const canonicalUrl = `${siteUrl}/pornstars/${params.name}`;
+    const title = `${pornstar.name} - Pornstar Profile & Videos on xxxc.online`;
+    const description = `Watch the best videos of ${pornstar.name} on xxxc.online. Browse their full collection, see their latest updates, and enjoy exclusive content.`;
+
+    return {
+        title,
+        description,
+        keywords: [pornstar.name, 'pornstar', 'videos', 'profile', 'xxxc.online'],
+        alternates: {
+            canonical: canonicalUrl,
+        },
+        openGraph: {
+            title,
+            description,
+            type: 'profile',
+            url: canonicalUrl,
+            images: [
+                {
+                    url: pornstar.imageUrl,
+                    width: 400,
+                    height: 400,
+                    alt: pornstar.name,
+                },
+            ],
+            profile: {
+                username: pornstar.name,
+            },
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            images: [pornstar.imageUrl],
+        },
+    };
+}
+
+
 function formatViews(views) {
   if (views >= 1000000000) return `${(views / 1000000000).toFixed(1)}B`;
   if (views >= 1000000) return `${(views / 1000000).toFixed(1)}M`;
@@ -46,7 +93,7 @@ export default async function PornstarProfilePage({ params }) {
   const { pornstar, pornstarVideos, trendingVideos } = data;
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-8 text-white">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-white">
       {/* Banner and Profile Info */}
       <div className="relative rounded-lg overflow-hidden mb-8">
         <div className="w-full h-48 md:h-64 bg-gray-800">
@@ -129,7 +176,7 @@ export default async function PornstarProfilePage({ params }) {
       {/* All Videos Grid */}
       {pornstarVideos.length > 0 && (
         <section>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-x-4 gap-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-x-4 gap-y-8">
             {pornstarVideos.map((video) => (
               <VideoCard key={video.id} video={video} />
             ))}

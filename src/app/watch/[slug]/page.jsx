@@ -84,17 +84,17 @@ export default async function WatchPage({ params }) {
   const similarVideos = otherVideos.sort(() => 0.5 - Math.random());
   
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-8">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-8">
+        <div className="lg:col-span-8 xl:col-span-9">
           <WatchPageClient video={video} />
         </div>
-        <div className="lg:col-span-4">
+        <div className="lg:col-span-4 xl:col-span-3">
             <div className="bg-card p-6 rounded-lg">
                 <h2 className="text-2xl font-bold mb-6 font-headline">Popular Searches</h2>
                 <div className="flex flex-wrap gap-2">
                     {popularSearches.map((search) => (
-                        <Button key={search} variant="secondary" className="bg-stone-800 hover:bg-stone-700 rounded-md h-auto py-1.5 px-3 text-sm">
+                        <Button key={search} variant="secondary" className="bg-stone-800 hover:bg-stone-700 text-white rounded-md h-auto py-1.5 px-3 text-sm">
                             {search}
                         </Button>
                     ))}

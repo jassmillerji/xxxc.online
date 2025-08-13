@@ -71,6 +71,7 @@ const WatchPageClient = ({ video }) => {
           if(videoElement.duration && !isNaN(videoElement.duration)) {
              setDuration(videoElement.duration);
           }
+          setIsLoading(false); // Hide loader once metadata is loaded
         };
         const handlePlay = () => setIsPlaying(true);
         const handlePause = () => setIsPlaying(false);
@@ -81,6 +82,7 @@ const WatchPageClient = ({ video }) => {
 
         const handleWaiting = () => setIsLoading(true);
         const handleCanPlay = () => setIsLoading(false);
+        const handlePlaying = () => setIsLoading(false);
 
         videoElement.addEventListener('timeupdate', handleTimeUpdate);
         videoElement.addEventListener('durationchange', handleDurationChange);
@@ -90,11 +92,11 @@ const WatchPageClient = ({ video }) => {
         videoElement.addEventListener('volumechange', handleVolumeChange);
         videoElement.addEventListener('waiting', handleWaiting);
         videoElement.addEventListener('canplay', handleCanPlay);
-        videoElement.addEventListener('playing', handleCanPlay);
-        videoElement.addEventListener('loadstart', handleWaiting);
+        videoElement.addEventListener('playing', handlePlaying);
+        videoElement.addEventListener('loadstart', () => setIsLoading(true));
 
 
-        if(videoElement.readyState > 0 && videoElement.duration && !isNaN(videoElement.duration)) {
+        if(videoElement.readyState >= 1) { // 1 means HAVE_METADATA
             handleLoadedMetadata();
         }
         
@@ -110,8 +112,8 @@ const WatchPageClient = ({ video }) => {
               videoElement.removeEventListener('volumechange', handleVolumeChange);
               videoElement.removeEventListener('waiting', handleWaiting);
               videoElement.removeEventListener('canplay', handleCanPlay);
-              videoElement.removeEventListener('playing', handleCanPlay);
-              videoElement.removeEventListener('loadstart', handleWaiting);
+              videoElement.removeEventListener('playing', handlePlaying);
+              videoElement.removeEventListener('loadstart', () => setIsLoading(true));
             }
             if(controlsTimeout.current) {
                 clearTimeout(controlsTimeout.current);
@@ -246,20 +248,6 @@ const WatchPageClient = ({ video }) => {
           autoPlay
           muted
           playsInline
-          onLoadedMetadata={(e) => {
-            if(e.currentTarget.duration && !isNaN(e.currentTarget.duration)) {
-              setDuration(e.currentTarget.duration)
-            }
-          }}
-          onCanPlay={() => {
-              if (videoRef.current?.duration && !isNaN(videoRef.current?.duration)) {
-                setDuration(videoRef.current.duration)
-              }
-              setIsLoading(false);
-          }}
-          onWaiting={() => setIsLoading(true)}
-          onPlaying={() => setIsLoading(false)}
-          onLoadStart={() => setIsLoading(true)}
         >
           Your browser does not support the video tag.
         </video>

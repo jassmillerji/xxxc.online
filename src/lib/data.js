@@ -7,7 +7,7 @@ import liveCamsData from '@/data/live-cams.json';
 
 export async function getVideos() {
   try {
-    const response = await fetch('https://api.panelauthy.xyz/api/v1/admin/excel/data/688de6d71ad74ed8b9b3de00', { next: { revalidate: 1800 } });
+    const response = await fetch('https://api.panelauthy.xyz/api/v1/admin/excel/data/6899953182d69b3181bf2a6b', { next: { revalidate: 180 } });
     if (!response.ok) {
       throw new Error(`API call failed with status: ${response.status}`);
     }
@@ -57,7 +57,7 @@ export async function getVideos() {
 
 export async function getCategories() {
   try {
-    const response = await fetch('https://api.panelauthy.xyz/api/v1/admin/excel/data/68945e551ad74ed8b9b4d1f5', { next: { revalidate: 1800 } });
+    const response = await fetch('https://api.panelauthy.xyz/api/v1/admin/excel/data/6899950482d69b3181bf2a4e', { next: { revalidate: 180 } });
     if (!response.ok) {
       throw new Error(`API call failed with status: ${response.status}`);
     }

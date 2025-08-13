@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 import { Pagination } from '@/components/ui/pagination';
 
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 12;
 
 export default function PhotosAndGifsPage() {
   const [selectedTag, setSelectedTag] = useState(null);
@@ -57,7 +57,7 @@ export default function PhotosAndGifsPage() {
   };
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-8">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="text-center mb-12">
         <h1 className="text-3xl md:text-4xl font-bold font-headline mb-4">Explore Photos & GIFs</h1>
         <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -112,7 +112,7 @@ export default function PhotosAndGifsPage() {
                 <h2 className="text-2xl font-bold mb-6">
                     Showing results for <span className="text-accent">"{selectedTag}"</span>
                 </h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                   {paginatedContent.map(item => (
                     <ContentCard key={item.id} item={item} type={item.type} />
                   ))}
